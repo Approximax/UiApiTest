@@ -1,7 +1,7 @@
 package tests;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
-import demoqa.config.DriverConfig;
+import config.DriverConfig;
 import demoqa.config.WebLinks;
 import utils.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
@@ -24,6 +24,7 @@ public class TestBase {
         Configuration.baseUrl = webLinks.baseUrl();
         Configuration.browserSize = driverConfig.browserSize();
         Configuration.browser = driverConfig.browserName();
+        Configuration.browserVersion = driverConfig.browserVersion();
         Configuration.timeout = 10000;
         Configuration.remote = webLinks.selenoidUrl();
 

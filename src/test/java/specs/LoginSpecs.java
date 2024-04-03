@@ -16,6 +16,7 @@ public class LoginSpecs {
             .log().uri()
             .log().method()
             .log().body()
+            .log().headers()
             .contentType(ContentType.JSON);
 
     public static ResponseSpecification loginResponse = new ResponseSpecBuilder()

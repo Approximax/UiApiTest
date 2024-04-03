@@ -1,4 +1,11 @@
 package tests;
 
-public class BookStoreTests {
+import org.junit.jupiter.api.Test;
+import utils.extensions.WithLogin;
+
+public class BookStoreTests extends TestBase{
+
+    @Test
+    @WithLogin
+    void emptyBookList() {}
 }
