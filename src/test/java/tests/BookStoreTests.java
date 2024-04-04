@@ -1,6 +1,7 @@
 package tests;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.ProfilePage;
 import utils.extensions.WithLogin;
@@ -12,6 +13,7 @@ public class BookStoreTests extends TestBase {
     ProfilePage profilePage = new ProfilePage();
 
     @Test
+    @Tag("emptyCheckout")
     @DisplayName("Проверка пустого списка книг под авторизованным пользователем")
     @WithLogin
     void emptyBookList() {

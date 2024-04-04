@@ -12,7 +12,13 @@ repositories {
 }
 
 def restAssuredVersion = "5.4.0",
-    allureVersion = "2.25.0"
+    allureRestVersion = "2.25.0",
+    junitVersion = "5.10.2",
+    slf4jVersion = "2.0.7",
+    selenideVersion = "7.2.3",
+    allureVersion = "2.25.0",
+    ownerVersion = "1.0.12",
+    jacksonVersion = "2.17.0"
 
 allure {
     report {
@@ -39,16 +45,30 @@ dependencies {
     testImplementation(
             "io.rest-assured:rest-assured:$restAssuredVersion",
             "io.rest-assured:json-schema-validator:$restAssuredVersion",
-            "io.qameta.allure:allure-rest-assured:$allureVersion",
-            "org.junit.jupiter:junit-jupiter:5.10.2",
-            'org.slf4j:slf4j-simple:2.0.7',
-            'com.codeborne:selenide:7.2.3',
-            'io.qameta.allure:allure-selenide:2.25.0',
-            'org.aeonbits.owner:owner:1.0.12',
-            'com.fasterxml.jackson.core:jackson-databind:2.17.0'
+            "io.qameta.allure:allure-rest-assured:$allureRestVersion",
+            "org.junit.jupiter:junit-jupiter:$junitVersion",
+            "org.slf4j:slf4j-simple:$slf4jVersion",
+            "com.codeborne:selenide:$selenideVersion",
+            "io.qameta.allure:allure-selenide:$allureVersion",
+            "org.aeonbits.owner:owner:$ownerVersion",
+            "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
     )
 }
 
-tasks.test {
+tasks.withType(Test) {
     useJUnitPlatform()
+    systemProperties(System.getProperties())
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
+
+task emptyCheckout_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("emptyCheckout")
+    }
 }
