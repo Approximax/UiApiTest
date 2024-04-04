@@ -1,24 +1,27 @@
 package utils.extensions;
 
+import config.UserConfig;
 import models.LoginResponseModel;
 import models.UserLoginModel;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.Cookie;
 
+import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static io.restassured.RestAssured.given;
 import static specs.LoginSpecs.loginRequestSpec;
 import static specs.LoginSpecs.loginResponse;
-import static com.codeborne.selenide.Selenide.open;
 
 public class LoginExtension implements BeforeEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) {
         UserLoginModel userLoginModel = new UserLoginModel();
-        userLoginModel.setUserName("test123456");
-        userLoginModel.setPassword("Test123456@");
+        UserConfig userConfig = ConfigFactory.create(UserConfig.class);
+        userLoginModel.setUserName(userConfig.getUserName());
+        userLoginModel.setPassword(userConfig.getPassword());
 
         LoginResponseModel responseModel = given(loginRequestSpec)
                 .body(userLoginModel)

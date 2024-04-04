@@ -1,15 +1,16 @@
 package tests;
+
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import config.DriverConfig;
-import demoqa.config.WebLinks;
-import utils.Attach;
+import config.LinksConfig;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import utils.Attach;
 
 import java.util.Map;
 
@@ -19,14 +20,14 @@ public class TestBase {
     static void beforeAll() {
 
         DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
-        WebLinks webLinks = ConfigFactory.create(WebLinks.class);
+        LinksConfig linksConfig = ConfigFactory.create(LinksConfig.class);
 
-        Configuration.baseUrl = webLinks.baseUrl();
+        Configuration.baseUrl = linksConfig.baseUrl();
         Configuration.browserSize = driverConfig.browserSize();
         Configuration.browser = driverConfig.browserName();
         Configuration.browserVersion = driverConfig.browserVersion();
         Configuration.timeout = 10000;
-        Configuration.remote = webLinks.selenoidUrl();
+        Configuration.remote = linksConfig.selenoidUrl();
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
@@ -34,8 +35,6 @@ public class TestBase {
                 "enableVideo", true
         ));
         Configuration.browserCapabilities = capabilities;
-
-        System.setProperty("environment", System.getProperty("environment", "stage"));
     }
 
     @BeforeEach
