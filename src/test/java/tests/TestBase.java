@@ -5,6 +5,7 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import config.DriverConfig;
 import config.LinksConfig;
 import io.qameta.allure.selenide.AllureSelenide;
+import io.restassured.RestAssured;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -23,6 +24,7 @@ public class TestBase {
         LinksConfig linksConfig = ConfigFactory.create(LinksConfig.class);
 
         Configuration.baseUrl = linksConfig.baseUrl();
+        RestAssured.baseURI = linksConfig.baseUri();
         Configuration.browserSize = driverConfig.browserSize();
         Configuration.browser = driverConfig.browserName();
         Configuration.browserVersion = driverConfig.browserVersion();

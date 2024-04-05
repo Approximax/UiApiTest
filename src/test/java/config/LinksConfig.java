@@ -9,6 +9,10 @@ public interface LinksConfig extends Config {
     @DefaultValue("https://demoqa.com/")
     String baseUrl();
 
+    @Key("base.uri")
+    @DefaultValue("https://demoqa.com/")
+    String baseUri();
+
     @Key("selenoid.url")
     @DefaultValue("https://user1:1234@selenoid.autotests.cloud/wd/hub")
     String selenoidUrl();
