@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import config.DriverConfig;
 import config.LinksConfig;
+import config.UserConfig;
 import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
 import org.aeonbits.owner.ConfigFactory;
@@ -22,6 +23,9 @@ public class TestBase {
 
         DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
         LinksConfig linksConfig = ConfigFactory.create(LinksConfig.class);
+        UserConfig userConfig = ConfigFactory.create(UserConfig.class);
+
+        String userName = userConfig.getUserName();
 
         Configuration.baseUrl = linksConfig.baseUrl();
         RestAssured.baseURI = linksConfig.baseUri();
@@ -30,6 +34,7 @@ public class TestBase {
         Configuration.browserVersion = driverConfig.browserVersion();
         Configuration.timeout = 10000;
         Configuration.remote = linksConfig.selenoidUrl();
+        Configuration.pageLoadStrategy = "eager";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(

@@ -17,15 +17,15 @@ public class BookStoreTests extends TestBase {
     @DisplayName("Проверка пустого списка книг под авторизованным пользователем")
     @WithLogin
     void emptyBookList() {
-        step("Открытие профиля пользователя", () -> {
+        step("Открытие прфилья пользователя с уже пройденной авторизацией", () -> {
             profilePage.openProfile();
         });
 
-        step("Проверка профиля", () -> {
+        step("Тетст открытия именно того профиля, чьи данные передавались на этапе авторизации", () -> {
             profilePage.checkUserNameInProfile();
         });
 
-        step("Проверка пустого списка", () -> {
+        step("Проверка отсутствия каких либо товаров в корзине по умолчанию", () -> {
             profilePage.checkUserItemsInTheProfile();
         });
     }
